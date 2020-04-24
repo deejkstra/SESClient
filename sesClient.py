@@ -67,10 +67,11 @@ def sendEmail(data, clientIndex):
         }
     }
 
-    print(json.dumps(sesData))
-    # try:
-    #     response = sesClient.send_email(Source=sesData['Source'], Destination=sesData['Destination'], Message=sesData['Message'])
-    # except Exception as ex:
-    #     print(ex)
+    try:
+        response = sesClient.send_email(Source=sesData['Source'], Destination=sesData['Destination'], Message=sesData['Message'])
+    except Exception as ex:
+        print(ex)
+
+# Execution
 
 bulkSendEmail()
