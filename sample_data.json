@@ -1,35 +1,25 @@
 {
     "clientData": [
         {
-            "firstName":"Matt",
-            "lastName":"Krupin",
-            "companyName":"Apollo 350",
-            "email":"mjkrupin@gmail.com",
-            "datetime": "Today at 1:00 PM EST(4/20)"
-        },
-        {
-            "firstName":"Alex",
-            "lastName":"Woods",
-            "companyName":"Cadwaladar",
-            "email":"alexw5714@gmail.com",
-            "datetime": "Today at 1:00 PM EST(4/20)"
+            "firstName":"",
+            "lastName":"",
+            "companyName":"",
+            "email":"",
+            "datetime": ""
         }
     ],
     "senderData": {
-        "firstName":"Matt",
-        "lastName":"Krupin",
-        "companyName":"Apollo350",
-        "email":"matthew@apollo350.com",
-        "phoneNumber":"5164263819",
+        "firstName":"",
+        "lastName":"",
+        "companyName":"",
+        "email":"",
+        "phoneNumber":"",
         "ccAddresses": [],
         "bccAddresses": [],
-        "subject": "Don't Ignore this Email!!!"
+        "subject": ""
     },
     "htmlData": {
         "clientFirstName": "clientData.firstName",
-        "clientDateTime": "clientData.datetime",
-        "clientCompanyName": "clientData.companyName",
-        "senderFirstName": "senderData.firstName",
-        "phonenumber": "senderData.phoneNumber"
+        "senderFirstName": "senderData.firstName"
     }
 }
