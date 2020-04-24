@@ -24,5 +24,12 @@
         "ccAddresses": [],
         "bccAddresses": [],
         "subject": "Don't Ignore this Email!!!"
+    },
+    "htmlData": {
+        "clientFirstName": "clientData.firstName",
+        "clientDateTime": "clientData.datetime",
+        "clientCompanyName": "clientData.companyName",
+        "senderFirstName": "senderData.firstName",
+        "phonenumber": "senderData.phoneNumber"
     }
 }

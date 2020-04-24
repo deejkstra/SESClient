@@ -11,28 +11,33 @@ CHARSET = "UTF-8"
 session = boto3.session.Session(profile_name='default')
 sesClient = session.client('ses')
 
-def getEmailTemplate(senderData, clientData):
-    return
-
 def bulkSendEmail(filename=EMAIL_DATA_FILENAME):
     with open(filename) as f:
         data = json.load(f)
 
+        clientIndex = 0
         for d in data['clientData']:
-            sendEmail(data['senderData'], d)
+            sendEmail(data, clientIndex)
+            clientIndex += 1
 
-def getEmailTemplate(senderData, clientData, filename=EMAIL_TEMPLATE_FILENAME):
+def getEmailTemplate(htmlData, senderData, clientData, filename=EMAIL_TEMPLATE_FILENAME):
+
+    def get(param):
+        source, key = param.split('.')
+        if source == 'senderData':
+            return senderData[key]
+        elif source == 'clientData':
+            return clientData[key]
+
+    paramsData = {k:get(v) for k, v in htmlData.items()}
+    
     with open(filename) as f:
         data = f.read()
-        return data.format(
-            clientFirstName=clientData['firstName'],
-            clientCompanyName=clientData['companyName'],
-            clientDateTime=clientData['datetime'],
-            senderFirstName=senderData['firstName'],
-            phonenumber=senderData['phoneNumber']
-        )
+        return data.format(**paramsData)
 
-def sendEmail(senderData, clientData):
+def sendEmail(data, clientIndex):
+    senderData = data['senderData']
+    clientData = data['clientData'][clientIndex]
     
     SENDER = "{firstName} {lastName} <{email}>".format(
         firstName=senderData['firstName'],
@@ -40,7 +45,7 @@ def sendEmail(senderData, clientData):
         email=senderData['email']
     )
 
-    emailTemplate = getEmailTemplate(senderData, clientData)
+    emailTemplate = getEmailTemplate(data['htmlData'], senderData, clientData)
 
     sesData = {
         'Source': SENDER,
@@ -63,9 +68,9 @@ def sendEmail(senderData, clientData):
     }
 
     print(json.dumps(sesData))
-    try:
-        response = sesClient.send_email(Source=sesData['Source'], Destination=sesData['Destination'], Message=sesData['Message'])
-    except Exception as ex:
-        print(ex)
+    # try:
+    #     response = sesClient.send_email(Source=sesData['Source'], Destination=sesData['Destination'], Message=sesData['Message'])
+    # except Exception as ex:
+    #     print(ex)
 
 bulkSendEmail()
